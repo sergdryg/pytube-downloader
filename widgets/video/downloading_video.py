@@ -186,8 +186,7 @@ class DownloadingVideo(Video):
             
     def configure_downloading(self):
         # print("Configure Downloading : configure_downloading()")
-        self.download_type_label.configure(text=f"{LanguageManager.data[self.download_type.lower()]} : "
-                                                f"{self.download_quality}")
+        self.download_type_label.configure(text=f"{self.download_quality}")
         self.file_size = self.download_type_info["size"]
         self.converted_file_size = ValueConvertUtility.convert_size(self.file_size, 2)
         self.download_file_name = FileUtility.get_available_file_name(self.download_file_name)
@@ -227,6 +226,7 @@ class DownloadingVideo(Video):
             print("downloading_video.py L-220 : ", error)
                 
     def set_for_converting(self):
+        self.download_time_label.place_forget()
         DownloadManager.unregister_from_active(self)
         
         self.set_waiting()
@@ -293,6 +293,8 @@ class DownloadingVideo(Video):
 
     def download_file(self, download_stream, download_file_name: str, download_file_size: int, download_type: Literal["audio", "video", "video_only", "audio_for_video"] = None):        
         # store current download status if need to rollback to previous status
+        self.download_time_label.place(relx=0.8, anchor="center", rely=0.2)
+      
         self.bytes_downloaded = 0
         self.download_time = 0
         try:
@@ -489,17 +491,15 @@ class DownloadingVideo(Video):
             text=f"{ValueConvertUtility.convert_size(self.total_bytes_downloaded, 2)} / {self.converted_file_size}"
         )
 
-        estimated_time = DownloadInfoUtility.get_estimated_time(self.download_type_info["size"], self.total_download_time, self.total_bytes_downloaded)
-        print("total size", ValueConvertUtility.convert_size(self.download_type_info["size"], decimal_points=2))
-        print("total download time", ValueConvertUtility.convert_time(self.total_download_time))
-        print("total bytes downloaded", ValueConvertUtility.convert_size(self.total_bytes_downloaded, decimal_points=2))
-        print("estimated time", ValueConvertUtility.convert_time(estimated_time))
-        print("-"*10)
-        
-        self.download_time_label.configure(text=f"{ValueConvertUtility.convert_time(estimated_time)}")
+        self.set_eta_time()
 
         if self.mode == "playlist":
             self.video_download_progress_callback()
+    
+    def set_eta_time(self):
+        estimated_time = DownloadInfoUtility.get_estimated_time(self.download_type_info["size"], self.total_download_time, self.total_bytes_downloaded)
+        if DownloadInfoUtility.get_estimated_time(self.download_type_info["size"], self.total_download_time, self.total_bytes_downloaded):
+            self.download_time_label.configure(text=f"{LanguageManager.data['eta']} : {ValueConvertUtility.convert_time(estimated_time) if estimated_time else LanguageManager.data['calculating']}")
             
     def set_downloading_failed(self):
         """
@@ -549,6 +549,8 @@ class DownloadingVideo(Video):
             self.video_download_status_callback(self, self.download_state)
         self.display_status()
         self.pause_resume_btn.place_forget()
+        self.download_time_label.place_forget()
+        self.process_percentage_label.configure(text="")
         self.download_progress_bar.set(0.5)
         self.process_percentage_label.configure(text="")
         self.net_speed_label.configure(text="")
@@ -653,9 +655,11 @@ class DownloadingVideo(Video):
     def set_widgets_texts(self):
         
         super().set_widgets_texts()
-        
-        self.download_type_label.configure(text=f"{LanguageManager.data[self.download_type.lower()]} : "
-                                                f"{self.download_quality}")
+        if not DownloadInfoUtility.get_estimated_time(self.download_type_info["size"], self.total_download_time, self.total_bytes_downloaded):
+            self.download_time_label.configure(text=f"{LanguageManager.data["calculating"]}")
+        else:
+            self.download_time_label.configure(text=f"{LanguageManager.data['eta']} : {ValueConvertUtility.convert_time(DownloadInfoUtility.get_estimated_time(self.download_type_info["size"], self.total_download_time, self.total_bytes_downloaded))}")
+            
         self.display_status()
         
     def set_widgets_fonts(self):

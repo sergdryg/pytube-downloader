@@ -124,6 +124,8 @@
     "download_speed": "வேகம்",
     "configuring_app_previous_state": "முன் நிலை அமைப்பு...",
     "more": "மேலும்",
-    "profile" : "சுயவிவரம்",
-    "explore_the_project": "திட்டத்தை ஆராய்க"
+    "profile": "சுயவிவரம்",
+    "explore_the_project": "திட்டத்தை ஆராய்க",
+    "eta": "நேரம்",
+    "calculating": "கணக்கிடுகிறது.."
 }
