@@ -90,10 +90,10 @@
     "minimize_to_tray": "Minimize To Tray",
     "reset": "Reset",
     "update_alert": "A new update is available! \nVisit the official website to download the \nlatest version.",
-    "alerts" : "Alerts",
-    "download_completed_notifi" : "Download Completed...",
-    "download_failed_notifi" : "Download Failed...",
-    "downloading_notifi" : "Downloading...",
+    "alerts": "Alerts",
+    "download_completed_notifi": "Download Completed...",
+    "download_failed_notifi": "Download Failed...",
+    "downloading_notifi": "Downloading...",
     "chunk_size": "Chunk Size",
     "history": "History",
     "videos": "Videos",
@@ -124,6 +124,8 @@
     "download_speed": "Download Speed",
     "configuring_app_previous_state": "Configuring app previous state...",
     "more": "More",
-    "profile" : "Profile",
-    "explore_the_project": "Explore the Project"
+    "profile": "Profile",
+    "explore_the_project": "Explore the Project",
+    "eta": "ETA",
+    "calculating": "Calculating.."
 }

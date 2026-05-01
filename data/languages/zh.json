@@ -125,5 +125,7 @@
     "configuring_app_previous_state": "配置应用程序的先前状态...",
     "more": "更多",
     "profile": "个人资料",
-    "explore_the_project": "探索项目"
+    "explore_the_project": "探索项目",
+    "eta": "时间",
+    "calculating": "计算.."
 }

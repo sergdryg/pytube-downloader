@@ -124,7 +124,8 @@
     "download_speed": "බාගත කිරීමේ වේගය",
     "configuring_app_previous_state": "යෙදුමේ පෙර තත්වය සැකසෙමින්...",
     "more": "තවත්",
-    "profile" : "පැතිකඩ",
-    "explore_the_project": "ව්‍යාපෘතිය විමසන්න"
+    "profile": "පැතිකඩ",
+    "explore_the_project": "ව්‍යාපෘතිය විමසන්න",
+    "eta": "කාලය",
+    "calculating": "පරික්ෂා කරමින්.."
 }
- 

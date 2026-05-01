@@ -3,7 +3,7 @@ from typing import List, Literal, Union, Callable
 from widgets.play_list import PlayList
 from widgets.video.downloading_video import DownloadingVideo
 from widgets.video.added_video import AddedVideo
-from utils import GuiUtils, ValueConvertUtility
+from utils import GuiUtils, ValueConvertUtility, DownloadInfoUtility
 from settings import AppearanceSettings, GeneralSettings
 from services import (
     LanguageManager,
@@ -39,8 +39,8 @@ class DownloadingPlayList(PlayList):
         self.re_download_btn: Union[ctk.CTkButton, None] = None
         self.videos_status_counts_label: Union[ctk.CTkLabel, None] = None
         self.total_download_size_progress_label: Union[ctk.CTkLabel, None] = None
-        self.estimated_time_label: Union[ctk.CTkLabel, None] = None
-        self.time_taken_label: Union[ctk.CTkLabel, None] = None                                                                                                                 
+        self.time_taken_label: Union[ctk.CTkLabel, None] = None
+        self.estimated_remaining_time_label: Union[ctk.CTkLabel, None] = None                                                                                                                 
 
         # callback utils
         self.playlist_download_complete_callback = playlist_download_complete_callback
@@ -54,7 +54,11 @@ class DownloadingPlayList(PlayList):
         self.downloaded_videos: List[DownloadingVideo] = []
         self.converting_videos: List[DownloadingVideo] = []
         self.download_state: Literal["waiting", "downloading", "downloaded", "failed", "converting"] = "waiting"
-         
+        
+        self.total_download_size: int = 0
+        self.current_download_size: int = 0
+        self.current_taken_time: float = 0.0
+
         super().__init__(
             root=root,
             master=master,
@@ -216,14 +220,21 @@ class DownloadingPlayList(PlayList):
         total_completion: float = 0
         total_bytes_downloaded: float = 0
         total_bytes_to_download: float = 0
+        total_download_time: float = 0
         for video in self.videos:
             if video.file_size != 0:
                 total_completion += video.total_bytes_downloaded / video.file_size
                 total_bytes_downloaded += video.total_bytes_downloaded
                 total_bytes_to_download += video.file_size
+                total_download_time += video.total_download_time
         avg_completion = total_completion / self.playlist_video_count
         self.set_playlist_download_progress(avg_completion, total_bytes_downloaded, total_bytes_to_download)
-    
+        self.set_estimated_time(total_bytes_to_download, total_download_time, total_bytes_downloaded)
+        
+        self.total_download_size = total_bytes_to_download
+        self.current_download_size = total_bytes_downloaded
+        self.current_taken_time = total_download_time
+
     def get_total_download_size(self):
         total_bytes_to_download: float = 0
         for video in self.videos:
@@ -257,6 +268,7 @@ class DownloadingPlayList(PlayList):
     def indicate_waiting(self):
         self.download_state = "waiting"
         self.re_download_btn.place_forget()
+        self.estimated_remaining_time_label.place_forget()
         self.status_label.configure(
             text=LanguageManager.data['waiting'],
             text_color=ThemeManager.get_color_based_on_theme("text_normal")
@@ -277,6 +289,7 @@ class DownloadingPlayList(PlayList):
     def indicate_downloading(self):
         self.download_state = "downloading"
         self.re_download_btn.place_forget()
+        self.estimated_remaining_time_label.place(rely=0.15, relx=0.775, anchor="n")
         self.status_label.configure(
             text=LanguageManager.data['downloading'],
             text_color=ThemeManager.get_color_based_on_theme("text_normal")
@@ -323,6 +336,7 @@ class DownloadingPlayList(PlayList):
         self.sub_frame = ctk.CTkFrame(self)
         self.download_progress_bar = ctk.CTkProgressBar(master=self.sub_frame)
         self.download_percentage_label = ctk.CTkLabel(master=self.sub_frame, text="")
+        self.estimated_remaining_time_label = ctk.CTkLabel(master=self.sub_frame, text="")
         self.status_label = ctk.CTkLabel(master=self.sub_frame)
         self.re_download_btn = ctk.CTkButton(
             self.playlist_main_frame,
@@ -349,6 +363,19 @@ class DownloadingPlayList(PlayList):
             text=f"0.0 B / {total_download_size}"
         )
 
+        if not self.get_total_download_size():
+            self.estimated_remaining_time_label.configure(
+                text=f"{LanguageManager.data['calculating']}"
+            )
+        else:
+            self.set_estimated_time(self.total_download_size, self.current_taken_time, self.current_download_size)
+
+    def set_estimated_time(self, total_download_size, current_taken_time, current_download_size):
+        eta_time = DownloadInfoUtility.get_estimated_time(total_download_size, current_taken_time, current_download_size)
+        self.estimated_remaining_time_label.configure(
+            text=f"{LanguageManager.data['eta']}: {ValueConvertUtility.convert_time(eta_time)}"
+        )
+
     def set_widgets_fonts(self):
         super().set_widgets_fonts()
 
@@ -359,6 +386,7 @@ class DownloadingPlayList(PlayList):
         self.total_download_size_progress_label.configure(font=("Segoe UI", 12 * scale, "bold"))
         self.re_download_btn.configure(font=("Segoe UI", 20 * scale, "normal"))
         self.videos_status_counts_label.configure(font=("Segoe UI", 11 * scale, "normal"))
+        self.estimated_remaining_time_label.configure(font=("Segoe UI", 11 * scale, "normal"))
 
     def set_widgets_sizes(self):
         super().set_widgets_sizes()
@@ -372,6 +400,7 @@ class DownloadingPlayList(PlayList):
         self.re_download_btn.configure(width=15 * scale, height=15 * scale)
         self.total_download_size_progress_label.configure(height=15 * scale)
         self.videos_status_counts_label.configure(height=15 * scale)
+        self.estimated_remaining_time_label.configure(height=15 * scale)
 
     # configure widgets colors depend on root width
     def set_widgets_accent_color(self):
@@ -396,7 +425,8 @@ class DownloadingPlayList(PlayList):
         self.status_label.configure(text_color=ThemeManager.get_color_based_on_theme("text_normal"))
         self.re_download_btn.configure(fg_color=ThemeManager.get_color_based_on_theme("primary"))
         self.download_progress_bar.configure(fg_color=ThemeManager.get_color_based_on_theme("secondary"))
-        self.total_download_size_progress_label.configure(text_color=ThemeManager.get_color_based_on_theme("text_normal"))
+        self.total_download_size_progress_label.configure(text_color=ThemeManager.get_color_based_on_theme("text_muted"))
+        self.estimated_remaining_time_label.configure(text_color=ThemeManager.get_color_based_on_theme("text_muted"))
         
     def on_mouse_enter_self(self, _event):
         # super().on_mouse_enter_self(_event)
@@ -439,7 +469,8 @@ class DownloadingPlayList(PlayList):
         self.download_progress_bar.place(relwidth=1, rely=0.4, anchor="w")
         self.status_label.place(relx=0.775, anchor="n", rely=0.55)
         self.videos_status_counts_label.place(rely=0.875, relx=0.5, anchor="center")
-        self.total_download_size_progress_label.place(rely=0.2, relx=0.8, anchor="center")
+        self.total_download_size_progress_label.place(rely=0.55, relx=0.05, anchor="nw")
+        self.estimated_remaining_time_label.place(rely=0.15, relx=0.775, anchor="ne")
 
     # configure widgets sizes and place location depend on root width
     def configure_widget_sizes(self, _event):

@@ -61,7 +61,7 @@ class AlertWindow(ctk.CTkToplevel):
         self.configure(height=self.height)
         self.resizable(False, False)
         self.iconbitmap("assets\\main icon\\512x512.ico")
-        self.title("PytubeDownloader")
+        self.title("Pytube Downloader")
         self.transient(master)
         self.grab_set()
 

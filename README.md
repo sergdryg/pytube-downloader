@@ -1,25 +1,38 @@
-# ⚡PyTube Downloader 
+
+
+<div align="center">
+  <a href="https://sourceforge.net/projects/pytube-downloader/" target="_blank"><img src="readme assets/main.ico" alt="PyTube Downloader" width="120"></a>
+  <h1>PyTube Downloader</h1>
+  <p><strong>Simple. Fast. Powerful YouTube Downloader.</strong></p>
+  <p>
+    <a href="https://sourceforge.net/projects/pytube-downloader/" target="_blank">🚀 SourceForge</a> •
+    <a href="#-features">✨ Features</a> •
+    <a href="#️-quick-start-guide">📦 Getting Started</a> •
+    <a href="#-contribution">🤝 Contributing</a>
+  </p>
 
 [![Language: 中文](https://img.shields.io/badge/Language-中文-red)](README_zh.md)
 [![Download (Latest)](https://img.shields.io/sourceforge/dm/pytube-downloader.svg?label=Downloads)](https://sourceforge.net/projects/pytube-downloader/files/latest/download)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![UI](https://img.shields.io/badge/UI-tkinter%2Bcustomtkinter-green)
+![Version](https://img.shields.io/badge/version-6.0.1-orange)
 
 ---
-
-### 🚀 Simple. Fast. Powerful YouTube Downloader.
 
 **PyTube Downloader** is a modern, user-friendly application that makes downloading YouTube videos and playlists effortless.
 With support for multiple formats, quality levels (144p–8K), and simultaneous downloads, it gives you **complete control** over your YouTube media experience.
 
- 
 &nbsp; &nbsp;[![Download PyTube Downloader](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/pytube-downloader/files/latest/download)
+
+</div>
+
+
 ---
 
 ## 🖥️ User Interface Preview
 
-![Preview](./readme%20assets/en-0.png) 
+![Preview](./readme%20assets/en-0.png)
 
 ---
 
@@ -38,7 +51,7 @@ With support for multiple formats, quality levels (144p–8K), and simultaneous 
   | English         | -                                                                                                   |
   | 中文 (Chinese)    | [<img src="https://github.com/childeyouyu.png?size=25" width="25">](https://github.com/childeyouyu) |
   | සිංහල (Sinhala) | [<img src="https://github.com/Navindu21.png?size=25" width="25">](https://github.com/Navindu21)     |
-  | தமிழ் (Tamil)   | [<img src="https://github.com/fathi-asma.png?size=25" width="25">](https://github.com/fathi-asma)   |
+  | தமிழ் (Tamil)   | [<img src="https://github.com/asma-mf.png?size=25" width="25">](https://github.com/asma-mf)   |
 
   💡 **Help us [improve existing translations](LANGUAGE_CONTRIBUTION_GUIDE_en.md/#improve-current-language-issues)** or [**add new ones**](LANGUAGE_CONTRIBUTION_GUIDE_en.md/#adding-a-new-language).
 * ⌨️ **Keyboard Shortcuts** — Control the app easily with quick-access shortcut keys.
@@ -49,8 +62,8 @@ With support for multiple formats, quality levels (144p–8K), and simultaneous 
 
 | Category          | Technologies                                                                                     |
 | ----------------- | ------------------------------------------------------------------------------------------------ |
-| **Language**      | Python                                                                                           |
-| **Libraries**     | `tkinter`, `customtkinter`, `pytubefix`, `pillow`, `pyautogui`, `pystray`, `pyperclip`. `hPyT`, `win11toast`, `ctkchart` |
+| **Language**      | Python 3.10+                                                                                     |
+| **Libraries**     | `tkinter`, `customtkinter`, `pytubefix`, `pillow`, `pyautogui`, `pystray`, `pyperclip`, `hPyT`, `win11toast`, `ctkchart` |
 | **External Tool** | `FFmpeg` (for video/audio processing)                                                            |
 
 ---
@@ -102,7 +115,7 @@ See [**Project Structure Guide**](PROJECT_STRUCTURE.md) for detailed folder and 
 
 ---
 
-## 🌙 Dark Theme Preview
+## 🌙 Screenshots
 
 | Screenshots                      |
 | -------------------------------- |
@@ -120,23 +133,17 @@ See [**Project Structure Guide**](PROJECT_STRUCTURE.md) for detailed folder and 
 
 ## ⭐ Star History
 
-<picture> 
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Thisal-D/PyTube-Downloader&type=Date&theme=dark">
   <img src="https://api.star-history.com/svg?repos=Thisal-D/PyTube-Downloader&type=Date&theme=light">
 </picture>
 
 ---
 
-Excellent — your README already looks great! 👏
-Below is an **improved version of the “Contribution” section** — rewritten to sound more inviting, professional, and community-driven.
-It highlights both *code* and *non-code* contributions (themes, translations, ideas, testing, docs, etc.) while keeping the same markdown tone as your file.
-
----
-
 ## 🤝 Contribution
 
 We **welcome all kinds of contributions** — not just code!
-Whether you’re improving the UI, translating, enhancing themes, or helping refine documentation — **your input makes PyTube Downloader better for everyone.**
+Whether you're improving the UI, translating, enhancing themes, or helping refine documentation — **your input makes PyTube Downloader better for everyone.**
 
 ### 💡 Ways You Can Contribute
 
@@ -158,10 +165,12 @@ Whether you’re improving the UI, translating, enhancing themes, or helping ref
 1. **Fork** the repository.
 2. **Create a new branch** for your changes.
 3. **Commit** your improvements with clear messages.
-4. **Submit a pull request** — we’ll review and merge it soon!
+4. **Submit a pull request** — we'll review and merge it soon!
+
+> See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
 
 > ❤️ Every contribution, big or small, is appreciated.
-> Let’s make PyTube Downloader even better — together!
+> Let's make PyTube Downloader even better — together!
 
 ---
 
@@ -175,7 +184,7 @@ See the [LICENSE](LICENSE) file for full details.
 ## ⚠️ Disclaimer
 
 This application is intended for **personal use only**.
-Please respect **YouTube’s Terms of Service** and content creators’ rights when downloading videos.
+Please respect **YouTube's Terms of Service** and content creators' rights when downloading videos.
 
 ---
 
@@ -186,10 +195,10 @@ Please respect **YouTube’s Terms of Service** and content creators’ rights w
 | [<img src="https://github.com/childeyouyu.png?size=25" width="25">](https://github.com/childeyouyu)         | [youyu](https://github.com/childeyouyu)                |
 | [<img src="https://github.com/Navindu21.png?size=25" width="25">](https://github.com/Navindu21)             | [Navindu Pahasara](https://github.com/Navindu21)       |
 | [<img src="https://github.com/sooryasuraweera.png?size=25" width="25">](https://github.com/sooryasuraweera) | [Soorya Suraweera](https://github.com/sooryasuraweera) |
-| [<img src="https://github.com/fathi-asma.png?size=25" width="25">](https://github.com/fathi-asma)           | [Fathima Asma](https://github.com/fathi-asma)          |
+| [<img src="https://github.com/asma-mf.png?size=25" width="25">](https://github.com/asma-mf)           | [Fathima Asma](https://github.com/asma-mf)          |
 
 ---
 
 <p align="center">
-<b>Made with ❤️</b>
+<b>Made with ❤️ by <a href="https://github.com/Thisal-D">Thisal-D</a> and contributors</b>
 </p>
