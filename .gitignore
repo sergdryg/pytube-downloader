@@ -7,3 +7,9 @@ history/thumbnails/*.png
 assets/profile images/*.png
 setup build.iss
 versioninfo-changed.txt
+build
+.sconsign-312.dblite
+@link_input.txt
+build_definitions.h
+scons-report.txt
+scons-error-report.pickle
